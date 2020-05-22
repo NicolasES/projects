@@ -1,20 +1,31 @@
 const router = require('express').Router()
 const container = require('./container')
+const errorMiddleware = require('../application/middlewares/ErrorMiddleware')
 
-router.get('/projects', (req, res) => {
-    return container.resolve('projectController').list(req, res)
+//project
+router.get('/projects', (req, res, next) => {
+    return container.resolve('projectController').list(req, res, next)
 })
 
-router.get('/projects/:id', (req, res) => {
-    return container.resolve('projectController').find(req, res)
+router.get('/projects/:id', (req, res, next) => {
+    return container.resolve('projectController').find(req, res, next)
 })
 
-router.post('/projects', (req, res) => {
-    return container.resolve('projectController').create(req, res)
+router.post('/projects', (req, res, next) => {
+    return container.resolve('projectController').create(req, res, next)
 })
 
-router.delete('/projects/:id', (req, res) => {
-    return container.resolve('projectController').delete(req, res)
+router.put('/projects/:id', (req, res, next) => {
+    return container.resolve('projectController').update(req, res, next)
 })
+
+router.delete('/projects/:id', (req, res, next) => {
+    return container.resolve('projectController').delete(req, res, next)
+})
+
+
+
+
+router.use(errorMiddleware)
 
 module.exports = router

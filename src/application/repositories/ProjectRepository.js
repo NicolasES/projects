@@ -6,11 +6,15 @@ module.exports = class ProjectRepository {
     }
 
     findOne(id) {
-        return Project.findById(id)
+        return Project.findById(id).then(project => project).catch(() => null)
     }
 
     create(project) {
         return Project.create(project)
+    }
+
+    update(project) {
+        return project.save()
     }
 
     delete(project) {

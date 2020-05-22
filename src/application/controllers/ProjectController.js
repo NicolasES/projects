@@ -3,27 +3,43 @@ module.exports = class ProjectController {
         this.projectService = projectService
     }
 
-    list(req, res) {
+    list(req, res, next) {
         this.projectService.findAll().then(data => {
             res.json(data)
+        }).catch(err => {
+            next(err)
         })
     }
 
-    find(req, res) {
+    find(req, res, next) {
         this.projectService.findOne(req.params.id).then(data => {
             res.json(data)
+        }).catch(err => {
+            next(err)
         })
     }
 
-    create(req, res) {
+    create(req, res, next) {
         this.projectService.create(req.body).then(data => {
             res.json(data)
+        }).catch(err => {
+            next(err)
         })
     }
 
-    delete(req, res) {
+    update(req, res, next) {
+        this.projectService.update(req.params.id, req.body).then(data => {
+            res.json(data)
+        }).catch(err => {
+            next(err)
+        })
+    }
+
+    delete(req, res, next) {
         this.projectService.deleteById(req.params.id).then(data => {
             res.json(data)
+        }).catch(err => {
+            next(err)
         })
     }
 }
