@@ -36,6 +36,9 @@ module.exports = class ProjectService {
 
     async deleteById(id) {
         let project = await this.projectRepository.findOne(id)
+        if (!project) {
+            throw new HttException('Project not found.', HttpStatus.NOT_FOUND, { erro: 'Project not found.' })
+        }
         return this.projectRepository.delete(project)
     }
 }
