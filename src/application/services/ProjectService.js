@@ -14,7 +14,7 @@ module.exports = class ProjectService {
     async findOne(id) {
         let project = await this.projectRepository.findOne(id)
         if (!project) {
-            throw new HttpException('Project not found.', HttpStatus.NOT_FOUND, { erro: 'Project not found.' })
+            throw new HttpException('Project not found.', HttpStatus.NOT_FOUND)
         }
         return project
     }
@@ -22,7 +22,7 @@ module.exports = class ProjectService {
     async update(id, data) {
         let project = await this.projectRepository.findOne(id)
         if (!project) {
-            throw new HttpException('Project not found.', HttpStatus.NOT_FOUND, { erro: 'Project not found.' })
+            throw new HttpException('Project not found.', HttpStatus.NOT_FOUND)
         }
 
         Object.assign(project, data)
@@ -37,7 +37,7 @@ module.exports = class ProjectService {
     async deleteById(id) {
         let project = await this.projectRepository.findOne(id)
         if (!project) {
-            throw new HttpException('Project not found.', HttpStatus.NOT_FOUND, { erro: 'Project not found.' })
+            throw new HttpException('Project not found.', HttpStatus.NOT_FOUND)
         }
         return this.projectRepository.delete(project)
     }

@@ -19,7 +19,7 @@ module.exports = class ProjectAnnotationService {
         
         let annotation = project.annotations.id(annotationId)
         if (!annotation) {
-            throw new HttpException('Annotation not found.', HttpStatus.NOT_FOUND, { erro: 'Annotation not found.' })
+            throw new HttpException('Annotation not found.', HttpStatus.NOT_FOUND)
         }
 
         Object.assign(annotation, data)
@@ -31,7 +31,7 @@ module.exports = class ProjectAnnotationService {
         let project = await this._getProject(projectId)
         let annotation = project.annotations.id(annotationId)
         if (!annotation) {
-            throw new HttpException('Annotation not found.', HttpStatus.NOT_FOUND, { erro: 'Annotation not found.' })
+            throw new HttpException('Annotation not found.', HttpStatus.NOT_FOUND)
         }
         annotation.remove()
         await this.projectRepository.update(project)
@@ -41,7 +41,7 @@ module.exports = class ProjectAnnotationService {
     async _getProject(projectId) {
         let project = await this.projectRepository.findOne(projectId)
         if (!project) {
-            throw new HttpException('Project not found.', HttpStatus.NOT_FOUND, { erro: 'Project not found.' })
+            throw new HttpException('Project not found.', HttpStatus.NOT_FOUND)
         }
 
         return project

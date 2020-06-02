@@ -37,7 +37,7 @@ module.exports = class ProjectController {
 
     delete(req, res, next) {
         this.projectService.deleteById(req.params.id).then(data => {
-            res.json(data)
+            res.status(204).json(data)
         }).catch(err => {
             next(err)
         })
