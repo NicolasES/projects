@@ -18,4 +18,12 @@ module.exports = class ProjectAnnotationController {
             next(err)
         })
     }
+
+    delete(req, res, next) {
+        this.projectAnnotationService.delete(req.params.projectId, req.params.annotationId).then(data => {
+            res.status(204).json(data)
+        }).catch(err => {
+            next(err)
+        })
+    }
 }

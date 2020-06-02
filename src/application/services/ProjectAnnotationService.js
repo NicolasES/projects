@@ -7,10 +7,7 @@ module.exports = class ProjectAnnotationService {
     }
 
     async create(projectId, data) {
-        let project = await this.projectRepository.findOne(projectId)
-        if (!project) {
-            throw new HttpException('Project not found.', HttpStatus.NOT_FOUND, { erro: 'Project not found.' })
-        }
+        let project = await this._getProject(projectId)
         let annotation = project.annotations.create(data)
         project.annotations.push(annotation)
         await this.projectRepository.update(project)
@@ -18,10 +15,7 @@ module.exports = class ProjectAnnotationService {
     }
 
     async update(projectId, annotationId, data) {
-        let project = await this.projectRepository.findOne(projectId)
-        if (!project) {
-            throw new HttpException('Project not found.', HttpStatus.NOT_FOUND, { erro: 'Project not found.' })
-        }
+        let project = await this._getProject(projectId)
         
         let annotation = project.annotations.id(annotationId)
         if (!annotation) {
@@ -31,5 +25,25 @@ module.exports = class ProjectAnnotationService {
         Object.assign(annotation, data)
         await this.projectRepository.update(project)
         return annotation
+    }
+
+    async delete(projectId, annotationId) {
+        let project = await this._getProject(projectId)
+        let annotation = project.annotations.id(annotationId)
+        if (!annotation) {
+            throw new HttpException('Annotation not found.', HttpStatus.NOT_FOUND, { erro: 'Annotation not found.' })
+        }
+        annotation.remove()
+        await this.projectRepository.update(project)
+        return true
+    }
+
+    async _getProject(projectId) {
+        let project = await this.projectRepository.findOne(projectId)
+        if (!project) {
+            throw new HttpException('Project not found.', HttpStatus.NOT_FOUND, { erro: 'Project not found.' })
+        }
+
+        return project
     }
 }

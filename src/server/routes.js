@@ -34,6 +34,9 @@ router.put('/projects/:projectId/annotations/:annotationId', (req, res, next) =>
     return projectAnnotationController.update(req, res, next)
 })
 
+router.delete('/projects/:projectId/annotations/:annotationId', (req, res, next) => {
+    return projectAnnotationController.delete(req, res, next)
+})
 
 
 
