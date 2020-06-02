@@ -6,14 +6,18 @@ const container = awilix.createContainer({
 
 // CONTROLLERS
 const ProjectController = require('../application/controllers/ProjectController')
+const ProjectAnnotationController = require('../application/controllers/ProjectAnnotationController')
 container.register({
-    projectController: awilix.asClass(ProjectController)
+    projectController: awilix.asClass(ProjectController),
+    projectAnnotationController: awilix.asClass(ProjectAnnotationController)
 })
 
 // SERVICES
 const ProjectService = require('../application/services/ProjectService')
+const ProjectAnnotationService = require('../application/services/ProjectAnnotationService')
 container.register({
-    projectService: awilix.asClass(ProjectService)
+    projectService: awilix.asClass(ProjectService),
+    projectAnnotationService: awilix.asClass(ProjectAnnotationService)
 })
 
 // REPOSITORIES

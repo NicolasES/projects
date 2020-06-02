@@ -21,7 +21,7 @@ module.exports = class ProjectController {
 
     create(req, res, next) {
         this.projectService.create(req.body).then(data => {
-            res.json(data)
+            res.status(201).json(data)
         }).catch(err => {
             next(err)
         })

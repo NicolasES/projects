@@ -1,5 +1,5 @@
 const Project = require('../models/Project')
-const HttException = require('../exceptions/HttpException')
+const HttpException = require('../exceptions/HttpException')
 const HttpStatus = require('http-status-codes')
 
 module.exports = class ProjectService {
@@ -14,7 +14,7 @@ module.exports = class ProjectService {
     async findOne(id) {
         let project = await this.projectRepository.findOne(id)
         if (!project) {
-            throw new HttException('Project not found.', HttpStatus.NOT_FOUND, { erro: 'Project not found.' })
+            throw new HttpException('Project not found.', HttpStatus.NOT_FOUND, { erro: 'Project not found.' })
         }
         return project
     }
@@ -22,7 +22,7 @@ module.exports = class ProjectService {
     async update(id, data) {
         let project = await this.projectRepository.findOne(id)
         if (!project) {
-            throw new HttException('Project not found.', HttpStatus.NOT_FOUND, { erro: 'Project not found.' })
+            throw new HttpException('Project not found.', HttpStatus.NOT_FOUND, { erro: 'Project not found.' })
         }
 
         Object.assign(project, data)
@@ -37,7 +37,7 @@ module.exports = class ProjectService {
     async deleteById(id) {
         let project = await this.projectRepository.findOne(id)
         if (!project) {
-            throw new HttException('Project not found.', HttpStatus.NOT_FOUND, { erro: 'Project not found.' })
+            throw new HttpException('Project not found.', HttpStatus.NOT_FOUND, { erro: 'Project not found.' })
         }
         return this.projectRepository.delete(project)
     }
